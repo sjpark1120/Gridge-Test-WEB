@@ -1,0 +1,58 @@
+{
+  "name": "neordinary-template-react-ts-web",
+  "description": "너디너리-템플릿-리액트-자바스크립트-웹",
+  "version": "1.0.0",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:neordinary/neordinary-template-react-ts-web.git"
+  },
+  "license": "Only use for softsquared project",
+  "author": "(주)소프트스퀘어드",
+  "scripts": {
+    "build-dev": "dotenv -e .env.development react-scripts build",
+    "build-stage": "dotenv -e .env.stage react-scripts build",
+    "build-prod": "dotenv -e .env.production react-scripts build",
+    "start": "react-scripts start",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "axios": "^0.26.1",
+    "dotenv-cli": "^5.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "react": "^17.0.2",
+    "react-app-polyfill": "^3.0.0",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.2",
+    "recoil": "^0.7.6",
+    "simplebar-react": "^2.4.1",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/react-dom": "^18.0.10",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "eslint": "8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "react-scripts": "5.0.0",
+    "typescript": "^4.8.3"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,html}": [
+      "prettier --write .",
+      "eslint --fix --max-warnings 0 src/"
+    ]
+  }
+}

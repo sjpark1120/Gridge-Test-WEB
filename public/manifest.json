@@ -1,0 +1,9 @@
+{
+  "short_name": "너디너리 템플릿 웹 리액트 타입스크립트",
+  "name": "너디너리 템플릿 웹 리액트 타입스크립트",
+  "icons": [{}],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
