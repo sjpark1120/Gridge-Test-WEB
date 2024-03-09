@@ -22,4 +22,11 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+}
 `;
