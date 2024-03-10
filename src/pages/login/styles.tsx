@@ -135,6 +135,8 @@ export const ErrorMessage = styled.div`
   font-weight: 600;
   color: #f04438;
   margin-bottom: 10px;
+  text-align: center;
+  width: 290px;
 `;
 export const PasswordToggle = styled.div`
   font-size: 16px;

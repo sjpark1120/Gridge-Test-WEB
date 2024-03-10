@@ -53,10 +53,6 @@ const Login = () => {
       if (!isLoginValid) {
         return; // 비활성화 상태일 때는 클릭 이벤트를 처리하지 않음
       }
-      if (Object.keys(name).length === 0) {
-        alert("이름을 입력해 주세요.");
-        return;
-      }
 
       //서버통신 코드 작성
 
