@@ -18,11 +18,10 @@ const AuthApi = {
       if (response && response.status === 200) {
         AxiosInstance.defaults.headers.common[
           "Authorization"
-        ] = `${response.data.result.jwt}`;
+        ] = `Bearer ${response.data.result.jwt}`;
         console.log("jws토큰 헤더에 저장", response.data.result.jwt);
-        localStorage.setItem("accessToken", response.data.result.jwt); //jwtToken 저장
+        localStorage.setItem("jwt", response.data.result.jwt); //jwtToken 저장
         localStorage.setItem("userId", response.data.result.id); // id 저장
-        localStorage.setItem("isLogin", "true"); //로그인여부 저장
       }
       return response.data;
     } catch (error) {
@@ -44,6 +43,14 @@ const AuthApi = {
     try {
       const response = await AxiosInstance.post("/auth/jwt", { jwt });
       console.log("response: ", response);
+      if (response && response.status === 200) {
+        AxiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${response.data.result.jwt}`;
+        console.log("jws토큰 헤더에 저장", response.data.result.jwt);
+        localStorage.setItem("jwt", response.data.result.jwt); //jwtToken 저장
+        localStorage.setItem("userId", response.data.result.id); // id 저장
+      }
       return response.data;
     } catch (error) {
       console.error("Error in rejwt:", error);
