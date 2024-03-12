@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import AppHeader from "../components/Header";
 import AppContent from "../components/Content";
-import AppFooter from "../components/Footer";
 import styled from "styled-components";
 import { supportDeviceSize } from "../components/styles";
 import AuthApi from "../apis/Auth";
@@ -39,6 +38,7 @@ const DefaultLayout = () => {
   };
 
   useEffect(() => {
+    //새로고침시 로그인 유지
     RefreshLogin();
   }, []);
 
@@ -46,18 +46,13 @@ const DefaultLayout = () => {
     <Root>
       <AppHeader />
       <AppContent />
-      <AppFooter />
     </Root>
   );
 };
 
 const Root = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 1080px;
-  height: 100vh;
-  background-color: green;
-
+  background-color: #f6f6f6;
+  width: 1440px;
   @media all and (max-width: ${supportDeviceSize}px) {
     width: 100vw;
   }
