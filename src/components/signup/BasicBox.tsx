@@ -9,6 +9,15 @@ import userIcon from "../../assets/userIcon.png";
 import noIcon from "../../assets/noIcon.png";
 import okIcon from "../../assets/okIcon.png";
 import { isVaildId, isValidPhoneNumber } from "../../utils/utility";
+import { useRecoilState } from "recoil";
+import {
+  loginIdState,
+  passwordState,
+  phoneState,
+  realNameState,
+  signupState,
+} from "../../recoil/signup";
+import UserApi from "../../apis/User";
 type Props = {
   onNext: () => void;
 };
@@ -113,12 +122,19 @@ const PasswordToggleBox = styled.div`
   top: 13px;
 `;
 const BasicBox: React.FC<Props> = ({ onNext }) => {
+  const [signupData] = useRecoilState(signupState);
+
   const [errorText, setErrorText] = useState("");
 
-  const [phoneNum, setPhoneNum] = useState("");
-  const [name, setName] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
+  // const [phoneNum, setPhoneNum] = useState("");
+  // const [name, setName] = useState("");
+  // const [nickname, setNickname] = useState("");
+  // const [password, setPassword] = useState("");
+
+  const [phoneNum, setPhoneNum] = useRecoilState(phoneState);
+  const [name, setName] = useRecoilState(realNameState);
+  const [nickname, setNickname] = useRecoilState(loginIdState);
+  const [password, setPassword] = useRecoilState(passwordState);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPasswordToggleVisible, setIsPasswordToggleVisible] = useState(false);
@@ -133,9 +149,34 @@ const BasicBox: React.FC<Props> = ({ onNext }) => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
-  const handleSignup = () => {
-    if (isSignupValid) {
-      onNext();
+  const handleSignup = async () => {
+    if (!isSignupValid) {
+      return; // 비활성화 상태일 때는 클릭 이벤트를 처리하지 않음
+    }
+    console.log("회원가입 데이터", signupData);
+    onNext();
+  };
+
+  const handledupId = async (id: string) => {
+    try {
+      const response = await UserApi.duplicateId(id);
+      //console.log(response);
+      setCheckNickname(true);
+      setErrorText("");
+      if (response.result.isExist) {
+        setCheckNickname(false);
+        setErrorText(
+          "사용할 수 없는 사용자 이름입니다. 다른 이름을 사용하세요"
+        );
+      }
+    } catch (error: any) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        alert(error.response.data.message);
+      }
     }
   };
 
@@ -184,14 +225,15 @@ const BasicBox: React.FC<Props> = ({ onNext }) => {
   }, [name]);
   useEffect(() => {
     //닉네임체크
-    if (isVaildId(nickname)) {
-      setCheckNickname(true);
-      setErrorText("");
-    } else {
-      setCheckNickname(false);
-      setErrorText(
-        "사용자 이름에는 문자, 숫자, 밑줄 및 마침표만 사용할 수 있습니다."
-      );
+    if (nickname.length > 0) {
+      if (isVaildId(nickname)) {
+        handledupId(nickname);
+      } else {
+        setCheckNickname(false);
+        setErrorText(
+          "사용자 이름에는 문자, 숫자, 밑줄 및 마침표만 사용할 수 있습니다."
+        );
+      }
     }
     if (nickname.length == 0) {
       setCheckNickname(false);
@@ -200,7 +242,7 @@ const BasicBox: React.FC<Props> = ({ onNext }) => {
   }, [nickname]);
   useEffect(() => {
     //비밀번호체크
-    if (password.length > 5) {
+    if (password.length > 6) {
       setCheckPassword(true);
     } else {
       setCheckPassword(false);

@@ -3,6 +3,9 @@ import styled from "styled-components";
 import checkIcon from "../../assets/checkbox.png";
 import nocheckIcon from "../../assets/nocheckbox.png";
 import { useNavigate } from "react-router-dom";
+import { signupState } from "../../recoil/signup";
+import { useRecoilState } from "recoil";
+import AuthApi from "../../apis/Auth";
 type Props = {
   onPrev: () => void;
 };
@@ -100,6 +103,8 @@ const MoreText = styled.div`
 `;
 const AgreeBox: React.FC<Props> = ({ onPrev }) => {
   const navigate = useNavigate();
+  const [signupData] = useRecoilState(signupState);
+
   const [is1Checked, setIs1Checked] = useState(false);
   const [is2Checked, setIs2Checked] = useState(false);
   const [is3Checked, setIs3Checked] = useState(false);
@@ -136,10 +141,24 @@ const AgreeBox: React.FC<Props> = ({ onPrev }) => {
       setIs3Checked(true);
     }
   };
-  const handleSignup = () => {
-    if (isSignupValid) {
-      //가입 api연결
+  const handleSignup = async () => {
+    if (!isSignupValid) {
+      return; // 비활성화 상태일 때는 클릭 이벤트를 처리하지 않음
+    }
+    //가입 api연결
+    console.log(signupData);
+    try {
+      const response = await AuthApi.signup(signupData);
+      console.log(response);
       navigate("/login");
+    } catch (error: any) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        alert(error.response.data.message);
+      }
     }
   };
   return (

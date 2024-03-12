@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Redirection from "./pages/Redirection";
 
 const loading = <div>화면을 불러오는 중 입니다.</div>;
 
@@ -20,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/login/kakao" element={<Redirection />} />
           <Route path="/404" element={<Page404 />} />
           <Route path="/500" element={<Page500 />} />
           <Route path="/*" element={<DefaultLayout />} />

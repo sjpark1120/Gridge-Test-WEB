@@ -3,6 +3,8 @@ import styled from "styled-components";
 import cakeImg from "../../assets/cake.png";
 import dropdownIcon from "../../assets/chevron-down.png";
 import dropdownCheckIcon from "../../assets/check.png";
+import { birthDateState } from "../../recoil/signup";
+import { useRecoilState } from "recoil";
 interface Props {
   onNext: () => void;
   onPrev: () => void;
@@ -120,6 +122,7 @@ const OptionItem = styled.li`
   }
 `;
 const BirthdayBox: React.FC<Props> = ({ onNext, onPrev }) => {
+  const [, setBirthDate] = useRecoilState(birthDateState);
   const [month, setMonth] = useState(0);
   const [day, setDay] = useState(0);
   const [year, setYear] = useState(0);
@@ -158,9 +161,20 @@ const BirthdayBox: React.FC<Props> = ({ onNext, onPrev }) => {
   };
 
   const handleSignup = () => {
-    if (isSignupValid) {
-      onNext();
+    if (!isSignupValid) {
+      return; // 비활성화 상태일 때는 클릭 이벤트를 처리하지 않음
     }
+    const birthday = new Date(year, month, day);
+    const dateFormat =
+      birthday.getFullYear() +
+      "-" +
+      (birthday.getMonth() + 1 < 9
+        ? "0" + (birthday.getMonth() + 1)
+        : birthday.getMonth() + 1) +
+      "-" +
+      (birthday.getDate() < 9 ? "0" + birthday.getDate() : birthday.getDate());
+    setBirthDate(dateFormat);
+    onNext();
   };
   const toggleOptionsDay = () => {
     setIsDayOpen(!isDayOpen);

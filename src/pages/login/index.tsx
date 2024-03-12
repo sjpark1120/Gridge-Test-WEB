@@ -21,19 +21,22 @@ import {
   Text3,
 } from "./styles";
 import { useRecoilState } from "recoil";
-import { jwtState, nameState } from "../../recoil/login";
+import { idState, jwtState } from "../../recoil/login";
 import kakaoIcon from "../../assets/kakao.png";
 import mailIcon from "../../assets/mail.png";
 import lockIcon from "../../assets/lock.png";
 import googlestoreImg from "../../assets/Mobile app store badge.png";
 import applestoreImg from "../../assets/Mobile app store badge apple.png";
 import { Link } from "react-router-dom";
+import AuthApi from "../../apis/Auth";
+import { link } from "../../apis/Kakao";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [name, setName] = useRecoilState(nameState);
+  const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [, setJwt] = useRecoilState(jwtState);
+  const [, setIdNumber] = useRecoilState(idState);
   const [errorText] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPasswordToggleVisible, setIsPasswordToggleVisible] = useState(false);
@@ -47,20 +50,34 @@ const Login = () => {
     }
   };
 
+  const onCilckKaKao = () => {
+    window.location.href = link;
+  };
+
   // 로그인 버튼 클릭
   const handleLogin = async () => {
     try {
       if (!isLoginValid) {
         return; // 비활성화 상태일 때는 클릭 이벤트를 처리하지 않음
       }
-
-      //서버통신 코드 작성
-
-      setJwt("success login");
-
+      const loginData = {
+        loginId: id,
+        password: password,
+      };
+      const response = await AuthApi.login(loginData);
+      console.log(response);
+      setIdNumber(response.result.id);
+      setJwt(response.result.jwt);
       navigate(`/`);
-    } catch (error) {
-      alert("네트워크 통신 실패. 잠시후 다시 시도해주세요.");
+    } catch (error: any) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        alert(error.response.data.message);
+      }
+      // alert("네트워크 통신 실패. 잠시후 다시 시도해주세요.");
     }
   };
 
@@ -70,12 +87,12 @@ const Login = () => {
 
   useEffect(() => {
     //로그인 버튼 활성화 체크
-    if (name.length > 0 && password.length > 5) {
+    if (id.length > 0 && password.length > 5) {
       setIsLoginValid(true);
     } else {
       setIsLoginValid(false);
     }
-  }, [name, password]);
+  }, [id, password]);
 
   useEffect(() => {
     //비밀번호 토글 보이기 안보이기
@@ -92,35 +109,39 @@ const Login = () => {
       <div>
         <LoginBox1>
           <LogoImg />
-          <LoginInput
-            placeholder="전화번호, 사용자 이름 또는 이메일"
-            icon={mailIcon}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            maxLength={20}
-          />
-          <PasswordBox>
-            {isPasswordToggleVisible ? (
-              <PasswordToggle onClick={togglePasswordVisible}>
-                {isPasswordVisible ? "숨기기" : "비밀번호 표시"}
-              </PasswordToggle>
-            ) : null}
+          <form>
             <LoginInput
-              placeholder="비밀번호"
-              icon={lockIcon}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type={isPasswordVisible ? "text" : "password"}
-              onKeyUp={onKeyUp}
+              placeholder="전화번호, 사용자 이름 또는 이메일"
+              icon={mailIcon}
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              type="text"
               maxLength={20}
+              autoComplete="username"
             />
-          </PasswordBox>
+            <PasswordBox>
+              {isPasswordToggleVisible ? (
+                <PasswordToggle onClick={togglePasswordVisible}>
+                  {isPasswordVisible ? "숨기기" : "비밀번호 표시"}
+                </PasswordToggle>
+              ) : null}
+              <LoginInput
+                placeholder="비밀번호"
+                icon={lockIcon}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type={isPasswordVisible ? "text" : "password"}
+                onKeyUp={onKeyUp}
+                maxLength={20}
+                autoComplete="current-password"
+              />
+            </PasswordBox>
+          </form>
           <LoginButton onClick={handleLogin} disabled={!isLoginValid}>
             로그인
           </LoginButton>
           <Or>or</Or>
-          <KaKaoButton>
+          <KaKaoButton onClick={onCilckKaKao}>
             <img src={kakaoIcon} width="22px" />
             카카오 로그인
           </KaKaoButton>
