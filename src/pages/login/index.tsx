@@ -37,7 +37,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [, setJwt] = useRecoilState(jwtState);
   const [, setIdNumber] = useRecoilState(idState);
-  const [errorText] = useState("");
+  const [errorText, setErrorText] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPasswordToggleVisible, setIsPasswordToggleVisible] = useState(false);
   const [isLoginValid, setIsLoginValid] = useState(false);
@@ -75,7 +75,8 @@ const Login = () => {
         error.response.data &&
         error.response.data.message
       ) {
-        alert(error.response.data.message);
+        //alert(error.response.data.message[0]);
+        setErrorText(error.response.data.message[0]);
       }
       // alert("네트워크 통신 실패. 잠시후 다시 시도해주세요.");
     }
