@@ -3,7 +3,6 @@ import { createGlobalStyle } from "styled-components";
 export const supportDeviceSize = 1080;
 
 export const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 
 html {
 font-size: 62.5%; // 1rem = 10px 로 변경 한 것
