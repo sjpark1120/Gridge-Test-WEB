@@ -10,6 +10,7 @@ const userState = atom({
   default: {
     name: "",
     jwt: "",
+    id: "",
   },
 });
 
@@ -17,6 +18,12 @@ export const nameState = selector({
   key: "nameState",
   get: ({ get }) => get(userState).name,
   set: ({ get, set }, name) => set(userState, { ...get(userState), name }),
+});
+
+export const idState = selector({
+  key: "idState",
+  get: ({ get }) => get(userState).id,
+  set: ({ get, set }, id) => set(userState, { ...get(userState), id }),
 });
 
 export const jwtState = selector({

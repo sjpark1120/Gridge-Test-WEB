@@ -3,6 +3,8 @@ import { createGlobalStyle } from "styled-components";
 export const supportDeviceSize = 1080;
 
 export const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
 html {
 font-size: 62.5%; // 1rem = 10px 로 변경 한 것
 // 참고링크 = https://stackoverflow.com/questions/68790660/setting-root-font-size-not-affecting-rem-units-in-safari-for-margin-padding-et
@@ -17,9 +19,18 @@ body {
     background: white;
     margin: 0;
     padding: 0;
-    font-family: -apple-system, sans-serif, Roboto;
+    /* font-family: -apple-system, sans-serif, Roboto; */
+    font-family: 'SF Pro Display', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    font-family: 'SF Pro Display', sans-serif;
 }
 `;
