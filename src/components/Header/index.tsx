@@ -1,60 +1,75 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import packageJson from "../../../package.json";
-import { Button, Header, HeaderText, Wrap } from "./styles";
+import React, { useState } from "react";
+import {
+  FlexBox,
+  Header,
+  HeaderButton,
+  LogoImg,
+  MenuButton,
+  MenuButtonContainer,
+  MenuContainer,
+  MenuIcon,
+  NavContainer,
+  ProfileImg,
+  SearchBox,
+} from "./styles";
+import heartIcon from "../../assets/heart.png";
+import plusIcon from "../../assets/plus-square.png";
+import sendIcon from "../../assets/send.png";
+import homeIcon from "../../assets/home.png";
+import alertIcon from "../../assets/alert-circle.png";
+import settingIcon from "../../assets/settings.png";
+import bookmarkIcon from "../../assets/bookmark.png";
+import userIcon from "../../assets/user.png";
+import { useNavigate } from "react-router";
+import AxiosInstance from "../../apis/CustomAxios";
 
 const AppHeader = () => {
   const navigate = useNavigate();
-
-  // const dispatch = useDispatch()
-  // const sidebarShow = useSelector((state) => state.sidebarShow)
-  // const [visible, setVisible] = useState(false)
+  const [visibleMenu, setVisibleMenu] = useState(true);
+  const handleLogout = () => {
+    delete AxiosInstance.defaults.headers.common["Authorization"];
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("userId");
+    navigate("/login");
+  };
 
   return (
     <Header>
-      <Wrap>
-        <svg width={30}>
-          <image href="../../assets/neordinary-logo.svg" />
-        </svg>
-        <HeaderText>
-          {process.env.REACT_APP_ENV !== "production" ? (
-            <>
-              REACT_APP_ENV : ${process.env.REACT_APP_ENV}
-              <br />
-              REACT_APP_API : ${process.env.REACT_APP_API}
-              <br />
-              프로젝트 : ${packageJson.name}
-              <br />
-              설명 : ${packageJson.description}
-              <br />
-              버전 : ${packageJson.version}
-            </>
-          ) : (
-            ""
-          )}
-        </HeaderText>
-      </Wrap>
-      <Wrap>
-        <Link to="/login">
-          <Button>로그아웃</Button>
-        </Link>
-        <Button
-          onClick={() => {
-            // replace true 는 뒤로가기시 이전 페이지로 안가짐
-            navigate("/dashboard", { replace: true });
-          }}
-        >
-          대시보드로 화면 전환
-        </Button>
-        <Button
-          onClick={() => {
-            // replace false (혹은 생략) 는 뒤로가기시 이전 페이지 가짐
-            navigate("/");
-          }}
-        >
-          홈
-        </Button>
-      </Wrap>
+      <LogoImg onClick={() => navigate("/")} />
+      <FlexBox>
+        <SearchBox />
+        <NavContainer>
+          <HeaderButton icon={homeIcon} onClick={() => navigate("/")} />
+          <HeaderButton icon={sendIcon} />
+          <HeaderButton icon={plusIcon} />
+          <HeaderButton icon={heartIcon} onClick={() => navigate("/pay")} />
+          <div style={{ position: "relative" }}>
+            <ProfileImg onClick={() => setVisibleMenu(!visibleMenu)} />
+            <MenuContainer isVisible={visibleMenu}>
+              <MenuButtonContainer onClick={() => navigate("/pay")}>
+                <MenuIcon icon={userIcon} />
+                <MenuButton>프로필</MenuButton>
+              </MenuButtonContainer>
+              <MenuButtonContainer>
+                <MenuIcon icon={bookmarkIcon} />
+                <MenuButton>저장됨</MenuButton>
+              </MenuButtonContainer>
+              <MenuButtonContainer>
+                <MenuIcon icon={settingIcon} />
+                <MenuButton>설정</MenuButton>
+              </MenuButtonContainer>
+              <MenuButtonContainer>
+                <MenuIcon icon={alertIcon} />
+                <MenuButton>문제 신고</MenuButton>
+              </MenuButtonContainer>
+              <MenuButtonContainer onClick={handleLogout}>
+                <MenuIcon icon={settingIcon} />
+                <MenuButton>로그아웃</MenuButton>
+              </MenuButtonContainer>
+            </MenuContainer>
+          </div>
+        </NavContainer>
+      </FlexBox>
     </Header>
   );
 };

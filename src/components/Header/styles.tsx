@@ -1,41 +1,102 @@
 import styled from "styled-components";
+import logoImg from "../../assets/logo2.png";
+import searchIcon from "../../assets/search.png";
+import dummyProfileImg from "../../assets/dummyProfile.png";
 
 export const Header = styled.div`
-  background-color: red;
+  /* position: fixed;
+  top: 0;
+  max-width: 1440px;
+  width: 100%; */
+  background-color: #ffffff;
+  border-bottom: #cccccc 1px solid;
+  height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.06);
-
-  margin: 1rem;
-  padding: 1rem;
+  justify-content: space-around;
 `;
-
-export const Wrap = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: green;
-  margin-left: 5rem;
-  margin-right: 5rem;
-`;
-
-export const HeaderText = styled.p`
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: white;
-  font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-`;
-
-export const Button = styled.div`
-  padding: 1rem;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  border-radius: 0.6rem;
-  background-color: blue;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: white;
-  text-align: center;
+export const LogoImg = styled.div`
+  width: 140px;
+  height: 50px;
+  background-size: cover;
+  background-image: url(${logoImg});
   cursor: pointer;
+`;
+export const SearchBox = styled.input`
+  width: 312px;
+  height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #b2b2b2;
+  background: url(${searchIcon}) no-repeat left 14px center;
+  background-size: 20px;
+  border-radius: 8px;
+  margin-right: 101px;
+  padding-left: 40px;
+`;
+export const HeaderButton = styled.div<{ icon?: string }>`
+  width: 24px;
+  height: 24px;
+  background: url(${(props) => props.icon});
+  background-size: cover;
+  cursor: pointer;
+`;
+export const ProfileImg = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
+  background-image: url(${dummyProfileImg});
+  background-size: cover;
+  border: 0.5px solid #ffffff;
+  cursor: pointer;
+`;
+export const NavContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  align-items: center;
+`;
+export const FlexBox = styled.div`
+  display: flex;
+`;
+export const MenuContainer = styled.div<{ isVisible?: boolean }>`
+  display: ${(props) => (props.isVisible ? "none" : "flex")};
+  width: 280px;
+  height: 312px;
+  border-radius: 8px;
+  border: 1px solid #eaecf0;
+  box-shadow: 0px 4px 6px -2px #10182808;
+  box-shadow: 0px 12px 16px -4px #10182814;
+  background-color: #ffffff;
+  position: absolute;
+  top: 44px;
+  right: -9px;
+
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+`;
+export const MenuButtonContainer = styled.div`
+  padding: 12px;
+  display: flex;
+  height: 47px;
+  width: 240px;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 8px;
+  cursor: pointer;
+  :hover {
+    background-color: #f8f8f8;
+  }
+`;
+export const MenuButton = styled.div`
+  font-size: 14px;
+  font-weight: 400px;
+  color: #667085;
+`;
+export const MenuIcon = styled.div<{ icon?: string }>`
+  width: 24px;
+  height: 24px;
+  background-image: url(${(props) => props.icon});
+  background-size: cover;
+  margin-right: 16px;
 `;
