@@ -14,5 +14,15 @@ const UserApi = {
       throw error;
     }
   },
+  getProfile: async (loginId: string) => {
+    try {
+      const response = await AxiosInstance.get(`/users/${loginId}/profile`);
+      //console.log("response: ", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error in get Profile:", error);
+      throw error;
+    }
+  },
 };
 export default UserApi;

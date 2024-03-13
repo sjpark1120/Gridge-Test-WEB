@@ -128,6 +128,21 @@ export const SubButton = styled.div`
   line-height: 24px;
   padding: 10px;
 `;
+export const UnSubButton = styled.div`
+  width: 320px;
+  height: 44px;
+  border-radius: 30px;
+  background-color: #f04438;
+  cursor: pointer;
+  text-align: center;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+  line-height: 24px;
+  padding: 10px;
+`;
 export const Terms = styled.div`
   font-size: 14px;
   font-weight: 400;
@@ -150,4 +165,54 @@ export const StoreBox = styled.div`
   align-items: center;
   width: 416px;
   margin: 71px auto 103px auto;
+`;
+
+export const ModalWrap = styled.div`
+  position: fixed;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
+export const ModalBody = styled.div`
+  position: fixed;
+  top: 40%; //모달을 화면가운데 놓기위함.
+  left: 50%;
+  width: 448px;
+  height: 223px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15); //테두리 그림자
+  transform: translateX(-50%); //모듈창열었을때 위치설정 가운데로
+  display: flex;
+  flex-direction: column;
+`;
+export const ModalTitle = styled.div`
+  font-size: 16px;
+  font-weight: 700;
+  color: #191919;
+`;
+export const ModalText = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  color: #7f7f7f;
+`;
+export const ModalButton = styled.div`
+  height: 61px;
+  border-top: 1px #cccccc solid;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  line-height: 61px;
+  cursor: pointer;
+`;
+export const ModalTextBox = styled.div`
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
 `;

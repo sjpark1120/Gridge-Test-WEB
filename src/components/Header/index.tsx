@@ -46,9 +46,9 @@ const AppHeader = () => {
           <div style={{ position: "relative" }}>
             <ProfileImg onClick={() => setVisibleMenu(!visibleMenu)} />
             <MenuContainer isVisible={visibleMenu}>
-              <MenuButtonContainer>
+              <MenuButtonContainer onClick={() => navigate("/pay")}>
                 <MenuIcon icon={userIcon} />
-                <MenuButton onClick={() => navigate("/pay")}>프로필</MenuButton>
+                <MenuButton>프로필</MenuButton>
               </MenuButtonContainer>
               <MenuButtonContainer>
                 <MenuIcon icon={bookmarkIcon} />
@@ -62,9 +62,9 @@ const AppHeader = () => {
                 <MenuIcon icon={alertIcon} />
                 <MenuButton>문제 신고</MenuButton>
               </MenuButtonContainer>
-              <MenuButtonContainer>
+              <MenuButtonContainer onClick={handleLogout}>
                 <MenuIcon icon={settingIcon} />
-                <MenuButton onClick={handleLogout}>로그아웃</MenuButton>
+                <MenuButton>로그아웃</MenuButton>
               </MenuButtonContainer>
             </MenuContainer>
           </div>

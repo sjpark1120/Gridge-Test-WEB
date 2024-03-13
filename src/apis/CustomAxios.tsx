@@ -14,10 +14,10 @@ AxiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log("인터셉트", error);
+    console.log("인터셉트", error.response);
     if (error.config.sent) {
       return Promise.reject(error);
-    } else {
+    } else if (error.response.data.error === "INVALID_AUTH_TOKEN") {
       error.config.sent = true;
       const token = localStorage.getItem("jwt");
       if (token) {
@@ -31,6 +31,7 @@ AxiosInstance.interceptors.response.use(
       }
       return Promise.reject(error);
     }
+    return Promise.reject(error);
   }
 );
 export default AxiosInstance;
