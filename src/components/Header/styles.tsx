@@ -4,17 +4,21 @@ import searchIcon from "../../assets/search.png";
 import dummyProfileImg from "../../assets/dummyProfile.png";
 
 export const Header = styled.div`
-  /* position: fixed;
+  position: fixed;
   top: 0;
   max-width: 1440px;
-  width: 100%; */
+  width: 100%;
+  z-index: 999;
+
   background-color: #ffffff;
   border-bottom: #cccccc 1px solid;
   height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding-left: 184px;
+  padding-right: 184px;
 `;
 export const LogoImg = styled.div`
   width: 140px;

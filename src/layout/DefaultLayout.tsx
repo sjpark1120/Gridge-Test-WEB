@@ -51,6 +51,7 @@ const DefaultLayout = () => {
 };
 
 const Root = styled.div`
+  margin-top: 80px;
   background-color: #f6f6f6;
   width: 1440px;
   @media all and (max-width: ${supportDeviceSize}px) {
