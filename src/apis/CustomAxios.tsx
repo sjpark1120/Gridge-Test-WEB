@@ -17,7 +17,10 @@ AxiosInstance.interceptors.response.use(
     console.log("인터셉트", error.response);
     if (error.config.sent) {
       return Promise.reject(error);
-    } else if (error.response.data.error === "INVALID_AUTH_TOKEN") {
+    } else if (
+      error.response.data.error === "INVALID_AUTH_TOKEN" ||
+      error.response.data.statusCode == 403
+    ) {
       error.config.sent = true;
       const token = localStorage.getItem("jwt");
       if (token) {
