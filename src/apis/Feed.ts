@@ -29,12 +29,12 @@ const FeedApi = {
       throw error;
     }
   },
-  getComments: async (feedId: number) => {
+  getComments: async (feedId: number, page: number) => {
     try {
       const response = await AxiosInstance.get(`/feeds/${feedId}/comments`, {
         params: {
-          size: 20,
-          page: 1,
+          size: 10,
+          page,
         },
       });
       //console.log("response: ", response);

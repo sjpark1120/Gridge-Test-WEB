@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import rightArrowIcon from "../../assets/rigntBtn.png";
 import leftArrowIcon from "../../assets/leftBtn.png";
 import dotIcon from "../../assets/dot.png";
@@ -63,7 +63,10 @@ const Board: React.FC<FeedPostProps> = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<FeedCommentProps[]>([]);
-
+  const [page, setPage] = useState(1);
+  const [isFetching, setFetching] = useState(false);
+  const [hasNextPage, setNextPage] = useState(true);
+  const postTextBoxRef = useRef<HTMLDivElement>(null);
   const handlePrevClick = () => {
     setCurrentImageIndex((prevIndex) => Math.max(0, prevIndex - 1));
   };
@@ -105,20 +108,64 @@ const Board: React.FC<FeedPostProps> = ({
       return `${minutes}분 전`;
     }
   };
-  const handleGetComments = async (feedId: number) => {
-    try {
-      const response = await FeedApi.getComments(feedId);
-      setComments(response.result.commentList);
-      //console.log("commentList", response.result);
-    } catch {
-      console.log("댓글 불러오기 실패이잉");
-    }
-  };
+  const handleGetComments = useCallback(
+    async (feedId: number, page: number) => {
+      try {
+        const response = await FeedApi.getComments(feedId, page);
+        setComments(comments.concat(response.result.commentList));
+        //console.log("commentList", response.result);
+        console.log("comments", comments);
+        console.log(page, "댓글불러옴");
+        setPage(page + 1);
+        setNextPage(response.result.lastPage >= page);
+        setFetching(false);
+      } catch {
+        console.log("댓글 불러오기 실패이잉");
+      }
+    },
+    [page]
+  );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!postTextBoxRef.current) return;
+      const { scrollTop, offsetHeight, scrollHeight } = postTextBoxRef.current;
+      if (scrollTop + offsetHeight >= scrollHeight - 100) {
+        //바닥닿기 100px전에 미리 불러옴
+        setFetching(true);
+      }
+    };
+    if (!postTextBoxRef.current) return;
+    setFetching(true);
+    postTextBoxRef.current.addEventListener("scroll", handleScroll);
+    return () => {
+      if (!postTextBoxRef.current) return;
+      postTextBoxRef.current.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isFetching && hasNextPage) handleGetComments(postId, page);
+    else if (!hasNextPage) setFetching(false);
+  }, [isFetching]);
+
   const handleWriteComment = async (feedId: number, commentText: string) => {
     try {
       const response = await FeedApi.writeComments(feedId, commentText);
-      handleGetComments(feedId); // 댓글목록 새로 불러옴
-      console.log(response);
+      //handleGetComments(feedId, page); // 댓글목록 새로 불러옴
+      const writeUserLoginId = localStorage.getItem("userId");
+      console.log(writeUserLoginId);
+      if (writeUserLoginId !== null) {
+        setComments(
+          comments.concat({
+            id: response.result.feedCommentId,
+            commentText,
+            writeUserLoginId,
+          })
+        );
+        console.log("댓글바로업데이트");
+      }
+      //console.log(response);
     } catch {
       console.log("댓글 쓰기 실패이잉");
     }
@@ -128,9 +175,9 @@ const Board: React.FC<FeedPostProps> = ({
     handleWriteComment(postId, comment);
     setComment("");
   };
-  useEffect(() => {
-    handleGetComments(postId);
-  }, []);
+  // useEffect(() => {
+  //   handleGetComments(postId);
+  // }, []);
   return (
     <ModalWrap onClick={handleClickOutside}>
       <ModalBody>
@@ -169,7 +216,7 @@ const Board: React.FC<FeedPostProps> = ({
             </UserInfoBox>
             <img src={moreDotIcon} width="24px" />
           </UserIdBox>
-          <PostTextBox>
+          <PostTextBox ref={postTextBoxRef}>
             <UserInfoBox>
               <UserImg src={dummyProfileImg} />
               <UserIdText>{userId}</UserIdText>

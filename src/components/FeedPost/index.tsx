@@ -121,7 +121,7 @@ const FeedPost: React.FC<FeedPostProps> = ({
 
   const handleGetComments = async (feedId: number) => {
     try {
-      const response = await FeedApi.getComments(feedId);
+      const response = await FeedApi.getComments(feedId, 1);
       setComments(response.result.commentList);
       //console.log("commentList", response.result);
       setTotalCommentCount(response.result.totalCount);
@@ -132,7 +132,7 @@ const FeedPost: React.FC<FeedPostProps> = ({
   };
   const handleGetComments2 = async (feedId: number) => {
     try {
-      const response = await FeedApi.getComments(feedId);
+      const response = await FeedApi.getComments(feedId, 1);
       setComments(response.result.commentList);
       //console.log("commentList", response.result);
     } catch {
