@@ -11,6 +11,7 @@ import {
   MyProfile,
   MyProfileImg,
   RecommandBox,
+  RecommandContainer,
   RecommandFlexBox,
   RecommandFollow,
   RecommandList,
@@ -120,7 +121,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div style={{ position: "relative" }}>
+      <RecommandContainer>
         <div style={{ position: "fixed" }}>
           <MyProfile>
             <MyProfileImg src={dummyProfileImg} />
@@ -166,7 +167,7 @@ const Home = () => {
             </RecommandList>
           </RecommandBox>
         </div>
-      </div>
+      </RecommandContainer>
     </HomeRoot>
   );
 };

@@ -5,6 +5,10 @@ export const HomeRoot = styled.div`
   display: flex;
   margin-left: 288px;
   gap: 104px;
+  @media screen and (max-width: 1000px) {
+    margin-left: 0;
+    justify-content: center;
+  }
 `;
 export const StoryContainer = styled.div`
   width: 520px;
@@ -61,6 +65,12 @@ export const MyName = styled.div`
   font-size: 16px;
   font-weight: 500;
   color: #7f7f7f;
+`;
+export const RecommandContainer = styled.div`
+  position: "relative";
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
 `;
 export const RecommandBox = styled.div`
   width: 416px;
