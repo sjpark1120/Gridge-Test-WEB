@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import storyImg1 from "../../assets/story1.png";
 import storyImg2 from "../../assets/story2.png";
 import storyImg3 from "../../assets/story3.png";
@@ -42,27 +42,44 @@ const Home = () => {
   const [realName, setRealName] = useState("");
 
   const [posts, setPosts] = useState<Post[]>([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(999);
   const [isFetching, setFetching] = useState(false);
-  const [hasNextPage, setNextPage] = useState(true);
+  const [isFirst, setIsFirst] = useState(true);
 
-  const handleGetFeeds = useCallback(async () => {
+  useEffect(() => {
+    firstGetFeeds();
+  }, []);
+  useEffect(() => {
+    if (!isFirst) {
+      handleGetFeeds();
+    }
+  }, [isFirst]);
+
+  const firstGetFeeds = async () => {
+    try {
+      const response = await FeedApi.getFeeds(page);
+      setPage(response.result.lastPage);
+      console.log("마지막페이지설정", response.result.lastPage);
+      setIsFirst(false);
+    } catch {}
+  };
+
+  const handleGetFeeds = async () => {
     try {
       const response = await FeedApi.getFeeds(page);
       //console.log("피드:", response);
       console.log(page, "불러옴");
-      setPosts(posts.concat(response.result.feedList));
-      setPage(page + 1);
-      setNextPage(response.result.lastPage >= page);
+      setPosts(posts.concat(response.result.feedList.reverse()));
+      setPage((prevPage) => prevPage - 1);
       setFetching(false);
     } catch {}
-  }, [page]);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       const { scrollTop, offsetHeight } = document.documentElement;
-      if (window.innerHeight + scrollTop >= offsetHeight - 1000) {
-        //바닥닿기 1000px전에 미리 불러옴
+      if (window.innerHeight + scrollTop >= offsetHeight - 500) {
+        //바닥닿기 500px전에 미리 불러옴
         setFetching(true);
       }
     };
@@ -72,8 +89,8 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (isFetching && hasNextPage) handleGetFeeds();
-    else if (!hasNextPage) setFetching(false);
+    if (isFetching && page > 0 && !isFirst) handleGetFeeds();
+    else if (page == 0) setFetching(false);
   }, [isFetching]);
 
   const handleGetProfile = async () => {

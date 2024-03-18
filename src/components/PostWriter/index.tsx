@@ -168,6 +168,7 @@ const PostWriter: React.FC<PostWriterProps> = ({
       console.log(response);
       setVisibleWriter(false);
       setIsLoading(false);
+      window.location.reload();
     } catch {
       console.log("업로드 실패");
       alert("업로드 실패, 나중에 다시 시도하세요.");
