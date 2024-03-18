@@ -1,7 +1,7 @@
 import AxiosInstance from "./CustomAxios";
 interface PostData {
   feedText: string;
-  contentUrls: [];
+  contentUrls: string[];
 }
 const FeedApi = {
   getFeeds: async (page: number) => {

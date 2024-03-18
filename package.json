@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "dotenv-cli": "^5.1.0",
+    "firebase": "^10.9.0",
     "jsonwebtoken": "^9.0.0",
     "react": "^17.0.2",
     "react-app-polyfill": "^3.0.0",

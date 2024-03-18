@@ -21,6 +21,7 @@ const AuthApi = {
         ] = `Bearer ${response.data.result.jwt}`;
         console.log("jws토큰 헤더에 저장", response.data.result.jwt);
         localStorage.setItem("jwt", response.data.result.jwt); //jwtToken 저장
+        localStorage.setItem("serverId", response.data.result.id); //서버loginId 저장
         localStorage.setItem("userId", loginData.loginId); // id 저장
       }
       return response.data;
@@ -49,7 +50,7 @@ const AuthApi = {
         ] = `Bearer ${response.data.result.jwt}`;
         console.log("jws토큰 헤더에 저장", response.data.result.jwt);
         localStorage.setItem("jwt", response.data.result.jwt); //jwtToken 저장
-        //localStorage.setItem("userId", response.data.result.id); // id 저장
+        localStorage.setItem("serverId", response.data.result.id); // id 저장
       }
       return response.data;
     } catch (error) {
