@@ -31,6 +31,7 @@ export const PostImg = styled.div<{ content?: string }>`
   height: 698px;
   background-image: url(${(props) => props.content});
   background-size: cover;
+  background-position: center;
   border-radius: 10px 0 0 10px;
 `;
 

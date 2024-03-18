@@ -2,6 +2,7 @@ import styled from "styled-components";
 import logoImg from "../../assets/logo2.png";
 import searchIcon from "../../assets/search.png";
 import dummyProfileImg from "../../assets/dummyProfile.png";
+import userIcon from "../../assets/user.png";
 
 export const Header = styled.div`
   position: fixed;
@@ -59,6 +60,12 @@ export const ProfileImg = styled.div`
   background-size: cover;
   border: 0.5px solid #ffffff;
   cursor: pointer;
+  @media screen and (max-width: 1000px) {
+    width: 24px;
+    height: 24px;
+    border-radius: 0;
+    background-image: url(${userIcon});
+  }
 `;
 export const NavContainer = styled.div`
   display: flex;
@@ -94,6 +101,9 @@ export const MenuContainer = styled.div<{ isVisible?: boolean }>`
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 1000px) {
+    top: -322px;
+  }
 `;
 export const MenuButtonContainer = styled.div`
   padding: 12px;
