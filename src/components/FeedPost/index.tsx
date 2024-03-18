@@ -105,9 +105,9 @@ const FeedPost: React.FC<FeedPostProps> = ({
 
     if (months > 0) {
       return `${postTime.getMonth() + 1}월 ${postTime.getDate()}일`;
-    } else if (days > 30) {
+    } else if (days > 0) {
       return `${days}일 전`;
-    } else if (hours > 24) {
+    } else if (hours > 0) {
       return `${hours}시간 전`;
     } else {
       return `${minutes}분 전`;
@@ -225,6 +225,7 @@ const FeedPost: React.FC<FeedPostProps> = ({
                     src={index === currentImageIndex ? dotBlueIcon : dotIcon}
                     width="5px"
                     onClick={() => handleDotClick(index)}
+                    style={{ objectFit: "cover" }}
                   />
                 ))}
           </ContentListDot>
