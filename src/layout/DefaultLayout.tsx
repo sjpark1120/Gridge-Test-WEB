@@ -7,7 +7,6 @@ import AuthApi from "../apis/Auth";
 import { useRecoilState } from "recoil";
 import { idState, jwtState } from "../recoil/login";
 import { useNavigate } from "react-router";
-
 const DefaultLayout = () => {
   const [, setJwt] = useRecoilState(jwtState);
   const [, setIdNumber] = useRecoilState(idState);
@@ -51,6 +50,7 @@ const DefaultLayout = () => {
 };
 
 const Root = styled.div`
+  margin-top: 80px;
   background-color: #f6f6f6;
   width: 1440px;
   @media all and (max-width: ${supportDeviceSize}px) {

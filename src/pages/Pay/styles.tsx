@@ -13,6 +13,7 @@ export const ProfileImg = styled.div`
   border-radius: 150px;
   background-image: url(${dummyProfileImg});
   background-size: cover;
+  background-position: center;
   margin-left: 297px;
   margin-right: 121px;
 `;

@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/login/kakao" element={<Redirection />} />
           <Route path="/404" element={<Page404 />} />
           <Route path="/500" element={<Page500 />} />
-          <Route path="/*" element={<DefaultLayout />} />
+          <Route path="/*" element={<DefaultLayout />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>

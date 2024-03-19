@@ -2,19 +2,27 @@ import styled from "styled-components";
 import logoImg from "../../assets/logo2.png";
 import searchIcon from "../../assets/search.png";
 import dummyProfileImg from "../../assets/dummyProfile.png";
+import userIcon from "../../assets/user.png";
 
 export const Header = styled.div`
-  /* position: fixed;
+  position: fixed;
   top: 0;
   max-width: 1440px;
-  width: 100%; */
+  width: 100%;
+  z-index: 999;
+
   background-color: #ffffff;
   border-bottom: #cccccc 1px solid;
   height: 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding-left: 184px;
+  padding-right: 184px;
+  @media screen and (max-width: 1000px) {
+    padding: 0 30px;
+  }
 `;
 export const LogoImg = styled.div`
   width: 140px;
@@ -33,6 +41,9 @@ export const SearchBox = styled.input`
   border-radius: 8px;
   margin-right: 101px;
   padding-left: 40px;
+  @media screen and (max-width: 1000px) {
+    margin-right: 0;
+  }
 `;
 export const HeaderButton = styled.div<{ icon?: string }>`
   width: 24px;
@@ -49,11 +60,27 @@ export const ProfileImg = styled.div`
   background-size: cover;
   border: 0.5px solid #ffffff;
   cursor: pointer;
+  @media screen and (max-width: 1000px) {
+    width: 24px;
+    height: 24px;
+    border-radius: 0;
+    background-image: url(${userIcon});
+  }
 `;
 export const NavContainer = styled.div`
   display: flex;
   gap: 20px;
   align-items: center;
+  @media screen and (max-width: 1000px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 61px;
+    background-color: white;
+    justify-content: space-between;
+    padding: 0 56px;
+  }
 `;
 export const FlexBox = styled.div`
   display: flex;
@@ -74,6 +101,9 @@ export const MenuContainer = styled.div<{ isVisible?: boolean }>`
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 1000px) {
+    top: -322px;
+  }
 `;
 export const MenuButtonContainer = styled.div`
   padding: 12px;

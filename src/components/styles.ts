@@ -23,6 +23,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    ::-webkit-scrollbar { //스크롤바 안보이게
+    display: none;
+  }
 }
 
 *{
