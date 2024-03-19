@@ -56,5 +56,27 @@ const FeedApi = {
       throw error;
     }
   },
+  deletePost: async (feedId: number) => {
+    try {
+      const response = await AxiosInstance.patch(`/feeds/${feedId}/inactive`);
+      //console.log("response: ", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error in delete Post:", error);
+      throw error;
+    }
+  },
+  updatePost: async (feedId: number, feedText: string) => {
+    try {
+      const response = await AxiosInstance.patch(`/feeds/${feedId}`, {
+        feedText,
+      });
+      //console.log("response: ", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error in update post:", error);
+      throw error;
+    }
+  },
 };
 export default FeedApi;
