@@ -313,6 +313,7 @@ const PostWriter: React.FC<PostWriterProps> = ({
                 <WritingInput
                   value={postText}
                   onChange={(e) => setPostText(e.target.value)}
+                  maxLength={2200}
                 />
                 <TextCount>{postText.length}/2,200</TextCount>
               </WritingArea>
