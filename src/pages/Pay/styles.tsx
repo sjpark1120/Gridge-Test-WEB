@@ -176,19 +176,20 @@ export const ModalWrap = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
 `;
 
 export const ModalBody = styled.div`
   position: fixed;
-  top: 40%; //모달을 화면가운데 놓기위함.
+  top: 50%;
   left: 50%;
   width: 448px;
   height: 223px;
   text-align: center;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15); //테두리 그림자
-  transform: translateX(-50%); //모듈창열었을때 위치설정 가운데로
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
 `;

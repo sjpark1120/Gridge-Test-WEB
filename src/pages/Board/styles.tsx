@@ -13,15 +13,15 @@ export const ModalWrap = styled.div`
 
 export const ModalBody = styled.div`
   position: fixed;
-  top: 50%; //모달을 화면가운데 놓기위함.
+  top: 50%;
   left: 50%;
   width: 1072px;
   height: 698px;
   text-align: center;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15); //테두리 그림자
-  transform: translate(-50%, -50%); //모듈창열었을때 위치설정 가운데로
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: row;
 `;
@@ -184,15 +184,15 @@ export const CommentWrap = styled.div`
 `;
 export const ModalBody2 = styled.div`
   position: fixed;
-  top: 50%; //모달을 화면가운데 놓기위함.
+  top: 50%;
   left: 50%;
   width: 448px;
   height: 450px;
   text-align: center;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15); //테두리 그림자
-  transform: translate(-50%, -50%); //모듈창열었을때 위치설정 가운데로
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
 `;
@@ -207,15 +207,15 @@ export const PostMenu = styled.div`
 `;
 export const ModalBody3 = styled.div`
   position: fixed;
-  top: 50%; //모달을 화면가운데 놓기위함.
+  top: 50%;
   left: 50%;
   width: 448px;
   height: 223px;
   text-align: center;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15); //테두리 그림자
-  transform: translate(-50%, -50%); //모듈창열었을때 위치설정 가운데로
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
 `;
