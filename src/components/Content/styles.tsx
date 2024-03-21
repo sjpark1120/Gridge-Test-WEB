@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
 export const Content = styled.div`
-  height: 100vh;
+  height: 100%;
+  min-height: 944px;
   display: flex;
   flex-direction: column;
   align-items: normal;
-  background-color: purple;
-  margin: 1rem;
-  padding: 2rem;
+  background-color: #f6f6f6;
 `;
