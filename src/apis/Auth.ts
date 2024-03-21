@@ -58,17 +58,32 @@ const AuthApi = {
       throw error;
     }
   },
-  kakaoLogin: async (code: string) => {
+  kakaoLogin: async (accessToken: string) => {
     try {
-      const response = await AxiosInstance.get("/auth/kakao/sign-in-by-code", {
-        params: {
-          code,
-        },
-      });
+      const response = await AxiosInstance.post(
+        "/auth/kakao/sign-in-by-token",
+        { accessToken }
+      );
       console.log("response: ", response);
+      localStorage.setItem("jwt", response.data.result.jwt); //jwtToken 저장
+      localStorage.setItem("serverId", response.data.result.id); //서버loginId 저장
+      localStorage.setItem("userId", response.data.result.loginId); // id 저장
       return response.data;
     } catch (error) {
       console.error("Error in kakao login:", error);
+      throw error;
+    }
+  },
+  kakaoSignup: async (signupData: SignupData) => {
+    try {
+      const response = await AxiosInstance.post(
+        "/auth/kakao/sign-up-by-token",
+        signupData
+      );
+      console.log("response: ", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error in kakao signup:", error);
       throw error;
     }
   },

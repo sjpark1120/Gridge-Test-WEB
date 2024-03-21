@@ -62,8 +62,9 @@ const Pay = () => {
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
       amount: 9900, // 결제금액
       name: "1개월 구독", // 주문명
-      buyer_name: "홍길동", // 구매자 이름
+      buyer_name: realName, // 구매자 이름
       buyer_email: "example@example.com", // 구매자 이메일
+      m_redirect_url: "http://localhost:3000/payment/callback",
     };
 
     //결제 창 호출
@@ -73,7 +74,7 @@ const Pay = () => {
   const callback = (response: RequestPayResponse) => {
     const { success, error_msg } = response;
     if (success) {
-      //결제성공
+      //결제성공api부분
       // axios({
       //   url: "https://api-sns.gridge-test.com/payment",
       //   method: "post",
@@ -86,7 +87,7 @@ const Pay = () => {
       //   // 서버 결제 API 성공시 로직
       //   console.log("결제성공", data);
       // });
-      console.log("결제성공");
+      console.log("결제성공"); //api가 없는 관계로 바로 성공
       setIsSubscribe(true);
     } else {
       //결제실패
@@ -181,7 +182,8 @@ const Pay = () => {
           <RealName>{realName}</RealName>
           <Hobby>여행</Hobby>
           <IntroduceText>
-            여행 다니는거 좋아해요 세계를 돌아다닙니다
+            {`여행 다니는거 좋아해요 
+세계를 돌아다닙니다`}
           </IntroduceText>
         </div>
       </ProfileContanier>

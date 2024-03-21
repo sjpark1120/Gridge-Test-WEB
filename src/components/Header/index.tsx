@@ -32,6 +32,7 @@ const AppHeader = () => {
     delete AxiosInstance.defaults.headers.common["Authorization"];
     localStorage.removeItem("jwt");
     localStorage.removeItem("userId");
+    localStorage.removeItem("serverId");
     navigate("/login");
   };
 

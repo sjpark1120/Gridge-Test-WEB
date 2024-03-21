@@ -148,8 +148,13 @@ const AgreeBox: React.FC<Props> = ({ onPrev }) => {
     //가입 api연결
     console.log(signupData);
     try {
-      const response = await AuthApi.signup(signupData);
-      console.log(response);
+      if (signupData.accessToken !== "") {
+        const response = await AuthApi.kakaoSignup(signupData);
+        console.log(response);
+      } else {
+        const response = await AuthApi.signup(signupData);
+        console.log(response);
+      }
       navigate("/login");
     } catch (error: any) {
       if (

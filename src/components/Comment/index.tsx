@@ -11,7 +11,9 @@ const Comment: React.FC<FeedComment> = ({ commentText, writeUser }) => {
     <CommentContainer>
       <ProfileImg src={dummyProfileImg} />
       <div>
-        <UserId>{`${writeUser} ${commentText}`}</UserId>
+        <UserId>{writeUser}</UserId>
+        {` `}
+        <UserId style={{ fontWeight: "500" }}>{commentText}</UserId>
         <Time>9분전</Time>
       </div>
     </CommentContainer>
