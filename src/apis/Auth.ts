@@ -65,6 +65,9 @@ const AuthApi = {
         { accessToken }
       );
       console.log("response: ", response);
+      localStorage.setItem("jwt", response.data.result.jwt); //jwtToken 저장
+      localStorage.setItem("serverId", response.data.result.id); //서버loginId 저장
+      localStorage.setItem("userId", response.data.result.loginId); // id 저장
       return response.data;
     } catch (error) {
       console.error("Error in kakao login:", error);
