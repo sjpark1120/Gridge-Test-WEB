@@ -18,6 +18,7 @@ import {
   signupState,
 } from "../../recoil/signup";
 import UserApi from "../../apis/User";
+import { JAVASCRIPT_API_Key } from "../../apis/Kakao";
 type Props = {
   onNext: () => void;
 };
@@ -180,6 +181,24 @@ const BasicBox: React.FC<Props> = ({ onNext }) => {
     }
   };
 
+  const onCilckKaKao = () => {
+    window.Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/login/kakao",
+    });
+  };
+
+  const initKakao = () => {
+    if (window.Kakao) {
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        window.Kakao.init(JAVASCRIPT_API_Key);
+      }
+    }
+  };
+
+  useEffect(() => {
+    initKakao();
+  }, []);
+
   useEffect(() => {
     //가입 버튼 활성화 체크
     if (checkPhoneNum && checkName && checkNickname && checkPassword) {
@@ -252,7 +271,7 @@ const BasicBox: React.FC<Props> = ({ onNext }) => {
     <LoginBox1>
       <LogoImg />
       <IntroText>친구들과 함께 여행 이야기를 공유하고 보세요.</IntroText>
-      <KaKaoButton>
+      <KaKaoButton onClick={onCilckKaKao}>
         <img src={kakaoIcon} width="22px" />
         카카오 로그인
       </KaKaoButton>

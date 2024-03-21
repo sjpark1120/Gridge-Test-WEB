@@ -8,6 +8,7 @@ export const signupState = atom({
     realName: "",
     phone: "",
     birthDate: "",
+    accessToken: "",
   },
 });
 
@@ -44,4 +45,11 @@ export const birthDateState = selector({
   get: ({ get }) => get(signupState).birthDate,
   set: ({ get, set }, birthDate) =>
     set(signupState, { ...get(signupState), birthDate }),
+});
+
+export const kakaoTokenState = selector({
+  key: "kakaoTokenState",
+  get: ({ get }) => get(signupState).accessToken,
+  set: ({ get, set }, accessToken) =>
+    set(signupState, { ...get(signupState), accessToken }),
 });

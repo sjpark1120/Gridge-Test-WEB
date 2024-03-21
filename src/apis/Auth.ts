@@ -58,17 +58,29 @@ const AuthApi = {
       throw error;
     }
   },
-  kakaoLogin: async (code: string) => {
+  kakaoLogin: async (accessToken: string) => {
     try {
-      const response = await AxiosInstance.get("/auth/kakao/sign-in-by-code", {
-        params: {
-          code,
-        },
-      });
+      const response = await AxiosInstance.post(
+        "/auth/kakao/sign-in-by-token",
+        { accessToken }
+      );
       console.log("response: ", response);
       return response.data;
     } catch (error) {
       console.error("Error in kakao login:", error);
+      throw error;
+    }
+  },
+  kakaoSignup: async (signupData: SignupData) => {
+    try {
+      const response = await AxiosInstance.post(
+        "/auth/kakao/sign-up-by-token",
+        signupData
+      );
+      console.log("response: ", response);
+      return response.data;
+    } catch (error) {
+      console.error("Error in kakao signup:", error);
       throw error;
     }
   },

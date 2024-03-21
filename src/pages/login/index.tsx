@@ -29,8 +29,12 @@ import googlestoreImg from "../../assets/Mobile app store badge.png";
 import applestoreImg from "../../assets/Mobile app store badge apple.png";
 import { Link } from "react-router-dom";
 import AuthApi from "../../apis/Auth";
-import { link } from "../../apis/Kakao";
-
+import { JAVASCRIPT_API_Key } from "../../apis/Kakao";
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 const Login = () => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
@@ -41,7 +45,6 @@ const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPasswordToggleVisible, setIsPasswordToggleVisible] = useState(false);
   const [isLoginValid, setIsLoginValid] = useState(false);
-
   // 비밀번호 에서 엔터키 누를 경우
   const onKeyUp = (event: React.KeyboardEvent<HTMLElement>) => {
     const key = event.key || event.keyCode;
@@ -51,8 +54,22 @@ const Login = () => {
   };
 
   const onCilckKaKao = () => {
-    window.location.href = link;
+    window.Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/login/kakao",
+    });
   };
+
+  const initKakao = () => {
+    if (window.Kakao) {
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        window.Kakao.init(JAVASCRIPT_API_Key);
+      }
+    }
+  };
+
+  useEffect(() => {
+    initKakao();
+  }, []);
 
   // 로그인 버튼 클릭
   const handleLogin = async () => {
